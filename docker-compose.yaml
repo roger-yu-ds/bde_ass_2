@@ -63,6 +63,18 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  jupyter:
+      build:
+          context: .
+          dockerfile: ./Dockerfile
+      container_name: airflow_jupyter
+      ports:
+          - "8888:8888"
+      environment:
+          - GRANT_SUDO=yes
+          - JUPYTER_ENABLE_LAB=yes
+      volumes:
+          - ./:/home/jovyan/work
   postgres:
     image: postgres:13
     environment:
