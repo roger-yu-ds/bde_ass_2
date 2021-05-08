@@ -75,6 +75,9 @@ services:
           - JUPYTER_ENABLE_LAB=yes
       volumes:
           - ./:/home/jovyan/work
+      depends_on:
+          - postgres
+          
   postgres:
     image: postgres:13
     environment:
@@ -161,3 +164,8 @@ services:
 volumes:
   postgres-db-volume:
   #data:
+
+networks:
+  resolute:
+    external:
+      name: resolute
