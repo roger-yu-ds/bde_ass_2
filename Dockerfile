@@ -9,11 +9,15 @@ USER root
 
 USER $NB_UID
 
+RUN conda install python=3.8
 RUN conda install pandas
 RUN conda install -c conda-forge jupyterlab_execute_time
 RUN conda install -c conda-forge python-dotenv
+RUN conda install -c conda-forge airflow
 RUN conda install -c conda-forge sweetviz
-RUN install pandas-profiling
+RUN conda install -c conda-forge pyarrow
+RUN conda install -c anaconda psycopg2
+RUN pip install pandas-profiling
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/jovyan/work"
 
