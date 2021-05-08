@@ -75,8 +75,6 @@ services:
           - JUPYTER_ENABLE_LAB=yes
       volumes:
           - ./:/home/jovyan/work
-      depends_on:
-          - postgres
           
   postgres:
     image: postgres:13
@@ -92,7 +90,7 @@ services:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s
       retries: 5
-    restart: always
+    restart: no
 
   redis:
     image: redis:latest
@@ -103,7 +101,7 @@ services:
       interval: 5s
       timeout: 30s
       retries: 50
-    restart: always
+    restart: no
 
   airflow-webserver:
     <<: *airflow-common
@@ -115,17 +113,17 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    restart: always
+    restart: no
 
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
-    restart: always
+    restart: no
 
   airflow-worker:
     <<: *airflow-common
     command: celery worker
-    restart: always
+    restart: no
 
   airflow-init:
     <<: *airflow-common
@@ -147,11 +145,11 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    restart: always
+    restart: no
 
   #db:
     #image: postgres:11
-    #restart: always
+    #restart: no
     #container_name: postgres
     #environment:
     #    - POSTGRES_USER=bde_lab_6
@@ -164,8 +162,3 @@ services:
 volumes:
   postgres-db-volume:
   #data:
-
-networks:
-  resolute:
-    external:
-      name: resolute
