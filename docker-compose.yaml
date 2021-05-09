@@ -90,7 +90,7 @@ services:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s
       retries: 5
-    restart: no
+    restart: "no"
 
   redis:
     image: redis:latest
@@ -101,7 +101,7 @@ services:
       interval: 5s
       timeout: 30s
       retries: 50
-    restart: no
+    restart: "no"
 
   airflow-webserver:
     <<: *airflow-common
@@ -113,17 +113,17 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    restart: no
+    restart: "no"
 
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
-    restart: no
+    restart: "no"
 
   airflow-worker:
     <<: *airflow-common
     command: celery worker
-    restart: no
+    restart: "no"
 
   airflow-init:
     <<: *airflow-common
@@ -145,20 +145,8 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    restart: no
+    restart: "no"
 
-  #db:
-    #image: postgres:11
-    #restart: no
-    #container_name: postgres
-    #environment:
-    #    - POSTGRES_USER=bde_lab_6
-    #    - POSTGRES_PASSWORD=bde_lab_6
-    #    - POSTGRES_DB=postgres
-    #volumes:
-    #    - ./data:/var/lib/postgresql/data
-    #ports:
-    #    - "5432:5432"
 volumes:
   postgres-db-volume:
   #data:
