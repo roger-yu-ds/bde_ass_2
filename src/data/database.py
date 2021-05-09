@@ -19,7 +19,7 @@ def get_connection_string(db_type: str='postgres',
     POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
     POSTGRES_DB = os.environ.get('POSTGRES_DB')
 
-    conn = f'postgresql+pypostgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@' \
+    conn = f'postgresql+psycopg2://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@' \
            f'{POSTGRES_HOST}:{POSTGRES_PORT}/{db_name}'
 
     return conn
