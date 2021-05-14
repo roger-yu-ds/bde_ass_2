@@ -17,7 +17,9 @@ RUN conda install -c conda-forge airflow=2.0.1
 RUN conda install -c conda-forge apache-airflow-providers-postgres
 RUN conda install -c conda-forge pyarrow
 RUN conda install -c anaconda psycopg2
-RUN conda install geopandas
+RUN conda install -c conda-forge geopandas
+RUN conda install -c anaconda openpyxl
+RUN conda install -c conda-forge geoalchemy2
 
 ENV PYTHONPATH "${PYTHONPATH}:/home/jovyan/work"
 
