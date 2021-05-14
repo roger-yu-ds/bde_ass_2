@@ -78,7 +78,7 @@ services:
           - ./:/home/jovyan/work
           
   postgres:
-    image: postgres:13
+    image: kartoza/postgis
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
