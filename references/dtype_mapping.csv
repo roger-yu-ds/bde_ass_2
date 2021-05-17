@@ -1,0 +1,7 @@
+pandas_dtype,postgres_dtype
+object,character
+int64,int
+bigint,int
+float64,float
+numeric,float
+date,date
