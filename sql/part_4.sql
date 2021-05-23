@@ -5,12 +5,6 @@
 --What are the main differences from a population point of view (i.g. higher population
 --of under 30s) between the best performing “neighbourhood_cleansed”and the worst
 --(in terms of estimated revenue per active listings) over the last 12 months?
-
---FROM `data_mart.table1`Get the `LGA_NAME16` or `LGA_CODE16` with the highest `est_revenue_per_active_listing`
---Get the `LGA_NAME16` or `LGA_CODE16` with the lowest `est_revenue_per_active_listing`
---For each LGA, get the distribution of population by age group from `star."2016Census_G01_NSW_LGA"`
---Do some comparisons
-
 with total_table as (
 select 
   t."LGA_CODE16" 
@@ -77,11 +71,6 @@ from total_table;
 --What will be the best type of listing (property type, room type and accommodates for)
 --for the top 5 “neighbourhood_cleansed” (in terms of estimated revenue per active
 --listing) to have the highest number of stays?
-
---Get the top 5 `LGA_NAME16` or `LGA_CODE16` by `est_revenue_per_active_listing`
---Within these 5 LGAs, GROUP BY property type, room type and accommodates for, and sum the number of stays
---Pick the group with the highest number of stays
-
 select 
   property_type 
 , room_type 
@@ -97,23 +86,6 @@ limit 5
 --(c)
 --Are hosts with multiple listings more inclined to have their listings in the same
 --“neighbourhood” as where they live?
-
---?In `star.dim_property`, filter on `host_id` with more than one `id`
---?Clean the `star.dim_host.host_neighbourhood`, get the SSC_NAME
---Join the `star.dim_property` with `star.dim_host.host_neighbourhood_cleansed`
---For each host, calculate the percentage of the properties that are in the same SSC.
---Average the proportions, or group them, e.g. 
---  * for hosts with 2 properties: 
---    * x% have 2 in the home SSC
---    * y% have 1 in the home SSC
---    * z% have 0 in the home SSC
---  * for hosts with 3 properties: 10% have the second property outside of their home SSC:
---    * w% have 3 in the home SSC
---    * x% have 2 in the home SSC
---    * y% have 1 in the home SSC
---    * z% have 0 in the home SSC
-
--- SSC cleaned
 with ssc_cleaned AS(
     select 
       geometry
@@ -181,14 +153,11 @@ select
 avg(proportion) as total_proportion
 from proportion_same
 ;
+
+
 --(d)
 --For hosts with a unique listing, does their estimated revenue over the last 12 months
 --cover the annualised median mortgage repayment of their listing’s “neighbourhood_cleansed”/"LGA"?
-
---In `star.dim_property`, filter on `host_id` with only one `id`
---Join with `star."2016Census_G02_NSW_LGA".Median_mortgage_repay_monthly`
---Per LGA and host, average the revenue over the 12 months
---Per LGA, count the number of hosts that 
 
 WITH host_property_e_1 AS (
 	SELECT 
