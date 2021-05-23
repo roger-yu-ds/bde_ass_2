@@ -3,13 +3,13 @@ import numpy as np
 
 
 def stringify_columns(fields: pd.Series,
-                      dtypes: pd.Series,
-                      keys: pd.Series,
-                      with_dtype: bool = False) -> str:
+                      dtypes: pd.Series = None,
+                      keys: pd.Series = None) -> str:
     """
     Returns a SQL query to create a table
-    :param df: A data dictionary dataframe with column names and data types
-    :param table_name: the name of the table to be created
+    :param fields:
+    :param dtypes:
+    :param keys:
     :return:
     """
 
@@ -27,7 +27,7 @@ def stringify_columns(fields: pd.Series,
                      'json': 'text',
                      'currency': 'money'}
 
-    if with_dtype:
+    if dtypes is not None:
         col_list = [f'    {field} {dtype_mapping[dtype]} PRIMARY KEY'
                     if key
                     else f'    {field} {dtype_mapping[dtype]}'
